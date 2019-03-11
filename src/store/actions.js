@@ -2,7 +2,7 @@ import { axios } from '../utils'
 
 // Add a channel
 export const addChannel = ({ commit }, { channel }) => {
-  return axios.get( '/?url=' + channel.url ).then(res => {
+  return axios.post('api', {"method": "add_channel", "args": [channel.url]}).then(res => {
     let newChannel = res.data;
 
     // append other info
