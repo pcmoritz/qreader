@@ -2,7 +2,7 @@
   <div class="feed-list">
       <el-row :gutter="14">
         <el-col v-for="(feed, index) in items" :key="index" :sm="12" :md="12" :lg="8">
-          <div class="feed-item" :class="{ 'query-match': query == feed.title }" @mouseover="markIt(feed)">
+          <div class="feed-item" :class="{ 'query-match': query == feed.title }" @mouseover="markIt(feed)" :style="{ 'background-color': float2color(feed.like) }">
               <div class="feed-thumb" v-if="feed.img">
                   <img :src="feed.img" alt="">
               </div>
@@ -50,6 +50,11 @@
             this.faveIt(item);
             axios.post('api', {"method": "mark_channel", "args": [item.link]})
           }
+      },
+      float2color(percentage) {
+        var color_part_dec = 255 * percentage;
+        var color_part_hex = Number(parseInt(color_part_dec, 10)).toString(16);
+        return "#" + color_part_hex + color_part_hex + color_part_hex;
       }
     }
   }
